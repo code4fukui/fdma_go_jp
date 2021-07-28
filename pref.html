@@ -1,0 +1,63 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>救急搬送困難事案ダッシュボード</title>
+<body style="margin:1em 1em;max-width: 800px">
+<h1>救急搬送困難事案ダッシュボード</h1>
+<p>(<span id="start"></span>〜<span id="end"></span>)</p>
+<div id="fdma"></div>
+<div><a href=https://github.com/code4fukui/fdma_go_jp>code4fukui/fdma_go_jp: 総務省消防庁オープンデータのCSV化</a></span></div>
+<div><a href=https://github.com/code4fukui/tabular-map>code4fukui/tabular-map: カラム地図タグ</a></span></div>
+
+<script type="module">
+import { TabularMap } from "https://code4fukui.github.io/tabular-map/tabular-map.js";
+import { CSV } from "https://js.sabae.cc/CSV.js";
+import { Num } from "https://js.sabae.cc/Num.js";
+import { JAPAN_PREF, JAPAN_PREF_EN } from "https://js.sabae.cc/JAPAN_PREF.js";
+
+window.addEventListener("load", async () => {
+  const url = "https://code4fukui.github.io/fdma_go_jp/emergencytransport_difficult_pref.csv";
+  const data = CSV.toJSON(await CSV.fetch(url));
+  
+  const latest = data[data.length - 1];
+  start.textContent = latest.開始日;
+  end.textContent = latest.終了日;
+  const latestdata = data.filter((d) => d.開始日 == latest.開始日);
+  
+  const tmap = new TabularMap();
+  fdma.appendChild(tmap);
+  const max = latestdata.reduce((prev, d) => prev > parseInt(d.救急搬送困難事案数) ? prev : parseInt(d.救急搬送困難事案数), 0);
+  for (const c of tmap.childNodes) {
+    const name = c.childNodes[0].textContent;
+    const getCount = () => {
+      if (name == "日本") {
+        return latestdata.reduce((prev, d) => prev + parseInt(d.救急搬送困難事案数), 0);
+      } else {
+        return latestdata.find((d) => d.都道府県.startsWith(name))?.救急搬送困難事案数 || "";
+      }
+    };
+    const n = getCount();
+    c.childNodes[1].textContent = Num.addComma(n) + "件";
+    const makeA = (name) => {
+      let link = "";
+      if (name != "日本") {
+        link = "#" + JAPAN_PREF_EN[JAPAN_PREF.findIndex((j) => j.startsWith(name))];
+      }
+      const a = document.createElement("a");
+      a.href = "https://www.stopcovid19.jp/" + link;
+      a.textContent = name;
+      return a;
+    };
+    if (name == "日本") {
+      c.replaceChild(makeA(name), c.childNodes[0]);
+    } else {
+      if (n > 0) {
+        c.style.backgroundColor = `rgba(255, 0, 0, ${.1 + (n / max) * .8})`;
+        if (n == max) {
+          c.style.color = "white";
+        }
+      }
+      c.replaceChild(makeA(name), c.childNodes[0]);
+    }
+  }
+});
+</script>
+</body>
