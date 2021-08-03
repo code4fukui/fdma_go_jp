@@ -3,6 +3,7 @@ import { CSV } from "https://js.sabae.cc/CSV.js";
 import IMIMojiConverter from "https://code4sabae.github.io/imi-moji-converter-es/IMIMojiConverter.mjs";
 import { Day } from "https://code4fukui.github.io/day-es/Day.js";
 import { Num } from "https://js.sabae.cc/Num.js";
+import {} from "./download.js";
 
 const fn = "emergencytransport_difficult.xlsx"
 const fn2 = fn.substring(0, fn.length - 4) + "csv";
@@ -117,3 +118,6 @@ await Deno.writeTextFile(fn4, CSV.encode(csv4));
 const sum4 = CSV.toJSON(csv4).reduce((prev, cur) => prev + cur.救急搬送困難事案数, 0);
 console.log(sum4);
 assert(sum2, sum4);
+
+const d4 = csv4[csv4.length - 1];
+console.log(d4[0].toString(), d4[1].toString(), d4[2]);
