@@ -1,6 +1,9 @@
 # fdma_go_jp
 
-総務省消防庁オープンデータのCSV化
+- 総務省消防庁オープンデータのCSV化
+- [日本全体合計CSV](https://code4fukui.github.io/fdma_go_jp/emergencytransport_difficult_all.csv)
+- [都道府県別CSV](https://code4fukui.github.io/fdma_go_jp/emergencytransport_difficult_pref.csv)
+- [消防本部別CSV](https://code4fukui.github.io/fdma_go_jp/emergencytransport_difficult.csv)
 
 ## データ
 
