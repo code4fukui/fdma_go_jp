@@ -12,4 +12,6 @@
 
 ## サンプルアプリ
 
-https://code4fukui.github.io/fdma_go_jp/
+- https://code4fukui.github.io/fdma_go_jp/
+- https://code4fukui.github.io/fdma_go_jp/pref.html
+
