@@ -58,7 +58,10 @@ for (let i = 2; i < csv[0].length; i++) {
   // R2 3/30(月)～4/5(日)分
   //const n = day.match(/R(\d+) (\d+)\/(\d+)\(.\)～(\d+)\/(\d+)\(.\)分\s+【(.+)】/);
   const n = day.match(/R(\d+) (\d+)\/(\d+)\(.\)[～～]\s*(\d+)\/(\d+)\(.\)/);
-  //console.log(day, n);
+  console.log(day, n);
+  if (!n) {
+    break;
+  }
   const start = new Day("R" + n[1], n[2], n[3]);
   const end = new Day("R" + (parseInt(n[1]) + (parseInt(n[4]) < parseInt(n[2]) ? 1 : 0)), n[4], n[5]);
   //const week = n[6];
