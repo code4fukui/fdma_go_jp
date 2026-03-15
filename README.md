@@ -1,5 +1,7 @@
 # fdma_go_jp
 
+> 日本語のREADMEはこちらです: [README.ja.md](README.ja.md)
+
 Data from the Ministry of Internal Affairs and Communications Fire and Disaster Management Agency on emergency transport difficulties during the COVID-19 pandemic.
 
 ## Data
