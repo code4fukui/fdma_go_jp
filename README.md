@@ -19,4 +19,4 @@ The "emergency transport difficulty cases" refer to cases where the emergency sq
 
 ## License
 
-MIT
+MIT License
